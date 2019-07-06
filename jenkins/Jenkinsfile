@@ -1,17 +1,15 @@
 pipeline {
-    agent none
+    agent any
     environment {
        PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/ankeshkatiyar/Downloads/apache-maven-3.5.4/bin"
    }
     stages {
         stage('Build') {
           agent {
-          docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
-                }
-              }
             steps {
+                script {
+                    docker.build registry + ":$BUILD_NUMBER"
+                }
                 sh 'mvn -B -DskipTests clean package'
             }
         }
