@@ -1,0 +1,5 @@
+app1:
+  build: .
+  dockerfile: Dockerfile_app1
+  ports:
+   - "80:80"
